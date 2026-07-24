@@ -1,12 +1,14 @@
 {
   "name": "gestionefinanze",
+  "homepage": "https://<your-username>.github.io/GestioneFinanze/",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "chart.js": "^3.9.1",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
+    "gh-pages": "^6.3.0",
     "vite": "^5.4.10",
     "vite-plugin-pwa": "^0.20.5"
   }
