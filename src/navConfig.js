@@ -17,5 +17,4 @@ export const NAV_ITEMS = [
   { id: "categorie", path: "/categorie", label: "Categorie", icon: Tags, num: "05" },
   { id: "ricorrenze", path: "/ricorrenze", label: "Ricorrenze", icon: Repeat2, num: "06" },
   { id: "portafogli", path: "/portafogli", label: "Portafogli", icon: Wallet, num: "07" },
-  { id: "impostazioni", path: "/impostazioni", label: "Impostazioni", icon: Settings, num: "08" },
 ];

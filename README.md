@@ -1,17 +1,17 @@
 # Gestione Finanze
 
-Base iniziale della webapp: struttura, navigazione e grafica, senza logica applicativa.
+Questa web app è stata preparata come Progressive Web App (PWA) installabile sul telefono.
 
-## Struttura pagine
+## Installazione sul telefono
 
-01. Home
-02. Movimenti
-03. Resoconto
-04. Obiettivi
-05. Categorie
-06. Impostazioni
+Dopo la pubblicazione su un host HTTPS:
+- apri il sito da Chrome o Safari;
+- scegli "Installa app" oppure "Aggiungi alla schermata Home";
+- l'app verrà disponibile come applicazione installata sul dispositivo.
 
-Tutte le pagine sono attualmente vuote (placeholder), pronte per essere sviluppate.
+## Offline
+
+Una volta aperta almeno una volta online, la PWA può essere usata anche senza connessione internet.
 
 ## Avvio in locale
 

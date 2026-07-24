@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import { Wallet, Menu, X, PlusCircle, MoonStar, SunMedium } from "lucide-react";
+import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
+import { Wallet, Menu, X, PlusCircle, MoonStar, SunMedium, Settings } from "lucide-react";
 
 import Sidebar from "./components/Sidebar.jsx";
 import Home from "./pages/Home.jsx";
@@ -13,11 +13,13 @@ import Portafogli from "./pages/Portafogli.jsx";
 import Impostazioni from "./pages/Impostazioni.jsx";
 
 import { loadAppData, saveAppData } from "./data/appData.js";
+import { NAV_ITEMS } from "./navConfig.js";
 import "./styles/app.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
 export default function App() {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [fabOpen, setFabOpen] = useState(false);
   const [appData, setAppData] = useState(loadAppData);
@@ -64,6 +66,11 @@ export default function App() {
     }));
   };
 
+  const openSettings = () => {
+    navigate("/impostazioni");
+    setMobileOpen(false);
+  };
+
   const submitQuickTransaction = (event) => {
     event.preventDefault();
     if (!quickForm.amount || !quickForm.categoryId) return;
@@ -107,6 +114,9 @@ export default function App() {
           <button className="icon-btn" type="button" onClick={toggleTheme} aria-label={isLightTheme ? "Passa a tema scuro" : "Passa a tema chiaro"}>
             {isLightTheme ? <MoonStar size={18} /> : <SunMedium size={18} />}
           </button>
+          <button className="icon-btn" type="button" onClick={openSettings} aria-label="Apri impostazioni">
+            <Settings size={18} />
+          </button>
         </div>
         <div className="sidebar-footer">Versione 0.1 · struttura iniziale</div>
       </aside>
@@ -139,6 +149,9 @@ export default function App() {
             <button className="icon-btn" type="button" onClick={toggleTheme} aria-label={isLightTheme ? "Passa a tema scuro" : "Passa a tema chiaro"}>
               {isLightTheme ? <MoonStar size={18} /> : <SunMedium size={18} />}
             </button>
+            <button className="icon-btn" type="button" onClick={openSettings} aria-label="Apri impostazioni">
+              <Settings size={18} />
+            </button>
             <button className="icon-btn" onClick={() => setMobileOpen(true)} aria-label="Apri menu">
               <Menu size={18} />
             </button>
@@ -158,6 +171,24 @@ export default function App() {
           </Routes>
         </div>
       </div>
+
+      <nav className="mobile-bottom-nav" aria-label="Navigazione mobile">
+        {NAV_ITEMS.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.id}
+              to={item.path}
+              end={item.path === "/"}
+              className={({ isActive }) => `mobile-bottom-nav__item ${isActive ? "is-active" : ""}`}
+              onClick={() => setMobileOpen(false)}
+            >
+              <Icon size={18} strokeWidth={1.8} />
+              <span>{item.label}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
 
       <button className="fab-button" onClick={() => setFabOpen(true)} aria-label="Aggiungi transazione">
         <PlusCircle size={18} />

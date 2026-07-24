@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   width: 100%;
-  background: transparent;
+  background: radial-gradient(circle at top left, rgba(93, 202, 165, 0.12), transparent 28%), var(--bg-0);
 }
 
 /* Sidebar */
@@ -12,6 +12,7 @@
   background: linear-gradient(180deg, color-mix(in srgb, var(--bg-1) 92%, var(--bg-2)) 0%, var(--bg-1) 100%);
   border-right: 1px solid var(--line);
   border-radius: 0 24px 24px 0;
+  backdrop-filter: blur(16px);
   display: flex;
   flex-direction: column;
   padding: 28px 16px;
@@ -75,6 +76,7 @@
   gap: 12px;
   width: 100%;
   padding: 10px 12px;
+  margin: 1px 0;
   border: none;
   background: transparent;
   border-radius: 12px;
@@ -89,7 +91,7 @@
 }
 
 .nav-item:hover {
-  background: var(--bg-2);
+  background: var(--accent-dim);
   color: var(--ink-0);
   transform: translateX(2px);
 }
@@ -149,7 +151,8 @@
   justify-content: space-between;
   padding: 14px 20px;
   border-bottom: 1px solid var(--line);
-  background: var(--bg-1);
+  background: color-mix(in srgb, var(--bg-1) 88%, transparent);
+  backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -419,6 +422,7 @@
   font: inherit;
   cursor: pointer;
   min-height: 44px;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
 }
 
 .primary-btn {
@@ -748,6 +752,10 @@
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
 }
 
+.mobile-bottom-nav {
+  display: none;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -844,7 +852,7 @@
   }
 
   .content {
-    padding: 24px 20px;
+    padding: 24px 20px 96px;
   }
 
   .page-empty {
@@ -871,5 +879,48 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+  }
+
+  .mobile-bottom-nav {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 32;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-1) 90%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .mobile-bottom-nav__item {
+    flex: 1 0 auto;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    color: var(--ink-2);
+    text-decoration: none;
+    font-size: 10.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .mobile-bottom-nav__item.is-active {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  .fab-button {
+    bottom: 88px;
   }
 }
