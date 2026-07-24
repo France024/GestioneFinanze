@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Wallet, Menu, X, PlusCircle, MoonStar, SunMedium, LogOut } from "lucide-react";
+import { Wallet, Menu, X, PlusCircle, MoonStar, SunMedium } from "lucide-react";
 
 import Sidebar from "./components/Sidebar.jsx";
 import Home from "./pages/Home.jsx";
@@ -16,20 +16,11 @@ import { loadAppData, saveAppData } from "./data/appData.js";
 import "./styles/app.css";
 
 const today = new Date().toISOString().slice(0, 10);
-const AUTH_STORAGE_KEY = "gestione-finanze-auth-v1";
-const DEFAULT_USERNAME = "admin";
-const DEFAULT_PASSWORD = "admin123";
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [fabOpen, setFabOpen] = useState(false);
   const [appData, setAppData] = useState(loadAppData);
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.localStorage.getItem(AUTH_STORAGE_KEY) === "true";
-  });
-  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
-  const [loginError, setLoginError] = useState("");
   const [quickForm, setQuickForm] = useState({
     type: "uscita",
     categoryId: appData.categories.find((category) => category.type === "uscita")?.id || "",
@@ -73,24 +64,6 @@ export default function App() {
     }));
   };
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    if (loginForm.username === DEFAULT_USERNAME && loginForm.password === DEFAULT_PASSWORD) {
-      setIsLoggedIn(true);
-      window.localStorage.setItem(AUTH_STORAGE_KEY, "true");
-      setLoginError("");
-      return;
-    }
-
-    setLoginError("Nome utente o password non validi.");
-  };
-
-  const logout = () => {
-    setIsLoggedIn(false);
-    window.localStorage.removeItem(AUTH_STORAGE_KEY);
-  };
-
   const submitQuickTransaction = (event) => {
     event.preventDefault();
     if (!quickForm.amount || !quickForm.categoryId) return;
@@ -126,45 +99,6 @@ export default function App() {
     setFabOpen(false);
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div className="login-screen">
-        <div className="login-card">
-          <div className="brand" style={{ marginBottom: 8 }}>
-            <div className="brand__icon">
-              <Wallet size={17} strokeWidth={2} />
-            </div>
-            <div className="brand__text">
-              <span className="brand__title">Gestione Finanze</span>
-              <span className="brand__sub">Accesso richiesto</span>
-            </div>
-          </div>
-
-          <h1 className="login-card__title">Accedi all’app</h1>
-          <p className="login-card__subtitle">Inserisci nome utente e password per continuare.</p>
-
-          <form className="login-form" onSubmit={handleLogin}>
-            <label className="field">
-              <span>Nome utente</span>
-              <input type="text" value={loginForm.username} onChange={(event) => setLoginForm((current) => ({ ...current, username: event.target.value }))} placeholder="admin" />
-            </label>
-
-            <label className="field">
-              <span>Password</span>
-              <input type="password" value={loginForm.password} onChange={(event) => setLoginForm((current) => ({ ...current, password: event.target.value }))} placeholder="admin123" />
-            </label>
-
-            {loginError ? <p className="login-error">{loginError}</p> : null}
-
-            <button className="primary-btn" type="submit">Accedi</button>
-          </form>
-
-          <p className="login-card__hint">Credenziali demo: admin / admin123</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -172,9 +106,6 @@ export default function App() {
         <div className="sidebar-actions">
           <button className="icon-btn" type="button" onClick={toggleTheme} aria-label={isLightTheme ? "Passa a tema scuro" : "Passa a tema chiaro"}>
             {isLightTheme ? <MoonStar size={18} /> : <SunMedium size={18} />}
-          </button>
-          <button className="icon-btn" type="button" onClick={logout} aria-label="Disconnetti">
-            <LogOut size={18} />
           </button>
         </div>
         <div className="sidebar-footer">Versione 0.1 · struttura iniziale</div>
@@ -207,9 +138,6 @@ export default function App() {
           <div className="topbar__actions">
             <button className="icon-btn" type="button" onClick={toggleTheme} aria-label={isLightTheme ? "Passa a tema scuro" : "Passa a tema chiaro"}>
               {isLightTheme ? <MoonStar size={18} /> : <SunMedium size={18} />}
-            </button>
-            <button className="icon-btn" type="button" onClick={logout} aria-label="Disconnetti">
-              <LogOut size={18} />
             </button>
             <button className="icon-btn" onClick={() => setMobileOpen(true)} aria-label="Apri menu">
               <Menu size={18} />
