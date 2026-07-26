@@ -14,6 +14,7 @@ export default defineConfig({
         name: 'GestioneFinanze',
         short_name: 'Finanze',
         description: 'Gestione personale di entrate e uscite, 100% offline',
+        lang: 'it',
         theme_color: '#2E7D32',
         background_color: '#FFFFFF',
         display: 'standalone',
@@ -23,7 +24,7 @@ export default defineConfig({
         scope: './',
         icons: [
           { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' }
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
         ]
       },
       workbox: {

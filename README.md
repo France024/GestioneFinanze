@@ -28,3 +28,7 @@ L'app sarà disponibile su `http://localhost:5173`.
 npm run build
 npm run preview
 ```
+
+## Distribuzione gratuita
+
+Puoi pubblicare l'app gratuitamente usando servizi come Netlify, Vercel o GitHub Pages. Una volta distribuita su HTTPS, apri il sito nel browser del telefono e scegli "Installa app" o "Aggiungi alla schermata Home".
