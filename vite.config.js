@@ -2,15 +2,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
-const base = process.env.VITE_BASE_PATH || '/'
-
 export default defineConfig({
-  base,
+  base: '/GestioneFinanze/',
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'icons/*.png'],
+      includeAssets: ['icons/*.png'],
       manifest: {
         id: './',
         name: 'GestioneFinanze',
@@ -30,7 +28,12 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+<<<<<<< HEAD
         navigateFallback: `${base}index.html`,
+=======
+        globIgnores: ['**/node_modules/**/*', '**/src/**/*'],
+        navigateFallback: 'index.html',
+>>>>>>> 913fdc83ae71e4a77ded90877db796872e6c5612
         cleanupOutdatedCaches: true
       }
     })
